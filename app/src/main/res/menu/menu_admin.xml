@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/actionLogout"
+        android:title="Logout"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/actionUserList"
+        android:title="User list"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/actionProdukList"
+        android:title="Produk List"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/actionPesananList"
+        android:title="Pesanan List"
+        app:showAsAction="never"/>
+</menu>
