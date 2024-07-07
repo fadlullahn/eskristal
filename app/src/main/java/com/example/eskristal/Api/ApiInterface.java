@@ -69,11 +69,11 @@ public interface ApiInterface {
             @Field("password") String password
     );
 
-    @GET("heros")
+    @GET("produk.php")
     Call<GetProduk> getHeros();
 
     @Multipart
-    @POST("heros")
+    @POST("produk.php")
     Call<PostPutDelProduk> postHeros(@Part MultipartBody.Part image,
                                      @Part("name") RequestBody name,
                                      @Part("price") RequestBody price,
@@ -81,7 +81,7 @@ public interface ApiInterface {
                                      @Part("flag") RequestBody flag);
 
     @Multipart
-    @POST("heros")
+    @POST("produk.php")
     Call<PostPutDelProduk> postUpdateHeros(@Part MultipartBody.Part image,
                                            @Part("id") RequestBody id,
                                            @Part("name") RequestBody name,
@@ -90,7 +90,7 @@ public interface ApiInterface {
                                            @Part("flag") RequestBody flag);
 
     @FormUrlEncoded
-    @HTTP(method = "DELETE", path = "heros", hasBody = true)
+    @HTTP(method = "DELETE", path = "produk.php", hasBody = true)
     Call<PostPutDelProduk> deleteHeros(@Field("id") String id);
 
 
