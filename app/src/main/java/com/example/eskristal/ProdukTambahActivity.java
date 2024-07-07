@@ -1,6 +1,8 @@
 package com.example.eskristal;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Intent;
@@ -154,5 +156,19 @@ public class ProdukTambahActivity extends AppCompatActivity {
             saveImageUpload();
         }
     }
+
+//    private void requestPermission() {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+//            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_WRITE_PERMISSION);
+//        } else {
+//            // Untuk versi Android di bawah Q, lakukan permintaan izin secara terpisah
+//            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_PERMISSION);
+//            } else {
+//                saveImageUpload();
+//            }
+//        }
+//    }
+
 
 }
