@@ -1,9 +1,5 @@
 package com.example.eskristal;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,16 +9,17 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.eskristal.Model.Produk.PostPutDelProduk;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.eskristal.Api.ApiClient;
 import com.example.eskristal.Api.ApiInterface;
+import com.example.eskristal.Model.Produk.PostPutDelProduk;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -120,13 +117,11 @@ public class ProdukTambahActivity extends AppCompatActivity {
     }
 
     // Simpan Gambar
-    private void saveImageUpload(){
+    private void saveImageUpload() {
         final String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-        if (mediaPath== null)
-        {
+        if (mediaPath == null) {
             Toast.makeText(getApplicationContext(), "Pilih gambar dulu, baru simpan ...!", Toast.LENGTH_LONG).show();
-        }
-        else {
+        } else {
             File imagefile = new File(mediaPath);
             RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-file"), imagefile);
             MultipartBody.Part partImage = MultipartBody.Part.createFormData("image", imagefile.getName(), reqBody);
@@ -149,13 +144,13 @@ public class ProdukTambahActivity extends AppCompatActivity {
         }
     }
 
-    private void requestPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            requestPermissions(new String[]{Manifest.permission.READ_MEDIA_IMAGES, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_PERMISSION);
-        } else {
-            saveImageUpload();
-        }
-    }
+//    private void requestPermission() {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+//            requestPermissions(new String[]{Manifest.permission.READ_MEDIA_IMAGES, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_PERMISSION);
+//        } else {
+//            saveImageUpload();
+//        }
+//    }
 
 //    private void requestPermission() {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -169,6 +164,14 @@ public class ProdukTambahActivity extends AppCompatActivity {
 //            }
 //        }
 //    }
+
+    private void requestPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_WRITE_PERMISSION);
+        } else {
+            saveImageUpload();
+        }
+    }
 
 
 }
