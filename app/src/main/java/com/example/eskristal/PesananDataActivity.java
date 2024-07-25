@@ -66,6 +66,14 @@ public class PesananDataActivity extends AppCompatActivity {
             sessionManager.logoutSession();
             moveToLogin();
         });
+
+        String level = sessionManager.getUserDetail().get(SessionManager.LEVEL);
+
+        if (level.equals("karyawan")) {
+            btnRight.setVisibility(View.VISIBLE);
+        } else {
+            btnRight.setVisibility(View.GONE);
+        }
     }
 
     private void moveToLogin() {
