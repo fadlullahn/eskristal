@@ -1,71 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:cardview="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="25dp"
+    android:padding="24dp"
+    android:background="@color/colorPrimary"
     tools:context=".RegisterActivity">
 
-    <TextView
-        android:id="@+id/tvPleaseCreateAccount"
-        android:layout_width="match_parent"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewRegister"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="Buat Akun"
-        android:textSize="24sp"/>
+        android:layout_margin="16dp"
+        cardview:cardCornerRadius="8dp"
+        cardview:cardElevation="4dp"
+        cardview:cardBackgroundColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/etRegisterUsername"
-        android:layout_marginTop="25dp"
-        android:layout_below="@+id/tvPleaseCreateAccount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Username"
-        android:drawablePadding="24dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
 
-    <EditText
-        android:id="@+id/etRegisterName"
-        android:layout_below="@+id/etRegisterUsername"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:hint="Your Name"
-        android:drawablePadding="24dp"/>
+            <TextView
+                android:id="@+id/tvPleaseCreateAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Buat Akun"
+                android:textSize="24sp"
+                android:textAlignment="center"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="24dp"/>
 
-    <EditText
-        android:id="@+id/etRegisterPassword"
-        android:layout_below="@+id/etRegisterName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:drawablePadding="24dp"/>
+            <EditText
+                android:id="@+id/etRegisterUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Username"
+                android:drawablePadding="16dp"
+                android:layout_marginBottom="12dp"/>
 
-    <EditText
-        android:id="@+id/etRegisterLevel"
-        android:layout_below="@+id/etRegisterPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:hint="Level"
-        android:inputType="text"
-        android:drawablePadding="24dp"/>
+            <EditText
+                android:id="@+id/etRegisterName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Your Name"
+                android:drawablePadding="16dp"
+                android:layout_marginBottom="12dp"/>
 
-    <Button
-        android:id="@+id/btnRegister"
-        android:layout_below="@id/etRegisterLevel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="REGISTER"/>
+            <EditText
+                android:id="@+id/etRegisterPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:drawablePadding="16dp"
+                android:layout_marginBottom="12dp"/>
 
-    <TextView
-        android:id="@+id/tvLoginHere"
-        android:layout_below="@id/btnRegister"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="Sudah Punya Akun? Login Disini"/>
+            <EditText
+                android:id="@+id/etRegisterLevel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Level"
+                android:drawablePadding="16dp"
+                android:layout_marginBottom="24dp"/>
 
-</RelativeLayout>
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/buttonColor"
+                android:textColor="@android:color/white"
+                android:text="REGISTER"/>
+
+            <TextView
+                android:id="@+id/tvLoginHere"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sudah Punya Akun? Login Disini"
+                android:textAlignment="center"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
