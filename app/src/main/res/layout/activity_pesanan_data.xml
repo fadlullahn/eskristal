@@ -29,4 +29,15 @@
         android:visibility="invisible"
         />
 
+    <Button
+        android:id="@+id/btnRight"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="250dp"
+        android:background="@color/buttonColor"
+        android:textColor="@color/putih"/>
+
 </RelativeLayout>

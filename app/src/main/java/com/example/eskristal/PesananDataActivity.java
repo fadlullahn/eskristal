@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ public class PesananDataActivity extends AppCompatActivity {
     private List<DataModelPesanan> listDataPesanan = new ArrayList<>();
     private SwipeRefreshLayout srlData;
     private ProgressBar pbData;
+    Button btnRight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class PesananDataActivity extends AppCompatActivity {
         rvData = findViewById(R.id.rv_data);
         srlData = findViewById(R.id.srl_data);
         pbData = findViewById(R.id.pb_data);
+        btnRight = findViewById(R.id.btnRight);
 
         lmData = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rvData.setLayoutManager(lmData);
@@ -58,6 +61,18 @@ public class PesananDataActivity extends AppCompatActivity {
                 srlData.setRefreshing(false);
             }
         });
+
+        btnRight.setOnClickListener(v -> {
+            sessionManager.logoutSession();
+            moveToLogin();
+        });
+    }
+
+    private void moveToLogin() {
+        Intent intent = new Intent(PesananDataActivity.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
+        startActivity(intent);
+        finish();
     }
 
     @Override
