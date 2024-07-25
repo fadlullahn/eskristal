@@ -1,12 +1,9 @@
 package com.example.eskristal;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,7 +11,7 @@ import android.widget.TextView;
 import com.example.eskristal.Adapter.SessionManager;
 
 public class MainActivity extends AppCompatActivity {
-    Button btnDataUser, btnDataProduk, btnDataPesanan, btnDataKaryawan;
+    Button btnDataUser, btnDataProduk, btnDataPesanan, btnDataKaryawan, btnLogout;
     TextView etUsername, etName, etLevel, etId, etPassword;
     SessionManager sessionManager;
     String username, name, level, id, password;
@@ -45,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         btnDataProduk = findViewById(R.id.btnDataProduk);
         btnDataUser = findViewById(R.id.btnDataUser);
         btnDataKaryawan = findViewById(R.id.btnDataKaryawan);
+        btnLogout = findViewById(R.id.btnLogout);
 
         etUsername = findViewById(R.id.etMainUsername);
         etName = findViewById(R.id.etMainName);
@@ -87,7 +85,14 @@ public class MainActivity extends AppCompatActivity {
 
         btnDataKaryawan.setOnClickListener(v -> {
             Intent intent = new Intent(this, UserDataActivity.class);
+            intent.putExtra("extraData", "karyawan");
+            intent.putExtra("extraDataPlus", "admin");
             startActivity(intent);
+        });
+
+        btnLogout.setOnClickListener(v -> {
+            sessionManager.logoutSession();
+            moveToLogin();
         });
     }
 
@@ -97,34 +102,4 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_admin, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.actionLogout) {
-            sessionManager.logoutSession();
-            moveToLogin();
-            return true;
-        } else if (item.getItemId() == R.id.actionUserList) {
-            Intent intent = new Intent(this, UserDataActivity.class);
-            startActivity(intent);
-            return true;
-        } else if (item.getItemId() == R.id.actionProdukList) {
-            Intent intent = new Intent(this, ProdukDataActivity.class);
-            startActivity(intent);
-            return true;
-        } else if (item.getItemId() == R.id.actionPesananList) {
-            Intent intent = new Intent(this, PesananDataActivity.class);
-            startActivity(intent);
-            return true;
-        } else {
-            return super.onOptionsItemSelected(item);
-        }
-    }
-
 }

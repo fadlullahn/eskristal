@@ -38,6 +38,7 @@ public class UserDataActivity extends AppCompatActivity {
     private SwipeRefreshLayout srlData;
     private ProgressBar pbData;
     private FloatingActionButton fabTambah;
+    private String extraData, extraDataPlus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,10 @@ public class UserDataActivity extends AppCompatActivity {
 
         lmData = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rvData.setLayoutManager(lmData);
+
+        Intent intent = getIntent();
+        extraData = intent.getStringExtra("extraData");
+        extraDataPlus = intent.getStringExtra("extraDataPlus");
 
 
         srlData.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -77,7 +82,7 @@ public class UserDataActivity extends AppCompatActivity {
         retrieveData();
     }
 
-    public void retrieveData(){
+    public void retrieveData() {
         pbData.setVisibility(View.VISIBLE);
 
         ApiInterface ardData = ApiClient.getClient().create(ApiInterface.class);
@@ -91,7 +96,24 @@ public class UserDataActivity extends AppCompatActivity {
 
                 listData = response.body().getData();
 
-                adData = new AdapterDataUser(UserDataActivity.this, listData);
+                List<DataModel> filteredList = new ArrayList<>();
+                for (DataModel item : listData) {
+                    if (extraData != null && extraDataPlus != null) {
+                        if (item.getLevel().equals(extraData) || item.getLevel().equals(extraDataPlus)) {
+                            filteredList.add(item);
+                        }
+                    } else if (extraData != null) {
+                        if (item.getLevel().equals(extraData)) {
+                            filteredList.add(item);
+                        }
+                    } else {
+                        if (item.getLevel().equals("user")) {
+                            filteredList.add(item);
+                        }
+                    }
+                }
+
+                adData = new AdapterDataUser(UserDataActivity.this, filteredList);
                 rvData.setAdapter(adData);
                 adData.notifyDataSetChanged();
 
@@ -100,46 +122,12 @@ public class UserDataActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseModel> call, Throwable t) {
-                Toast.makeText(UserDataActivity.this, "Gagal Menghubungi Server : "+t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(UserDataActivity.this, "Gagal Menghubungi Server : " + t.getMessage(), Toast.LENGTH_SHORT).show();
 
                 pbData.setVisibility(View.INVISIBLE);
             }
         });
     }
 
-    private void moveToLogin() {
-        Intent intent = new Intent(UserDataActivity.this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
-        startActivity(intent);
-        finish();
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_admin, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.actionLogout) {
-            sessionManager.logoutSession();
-            moveToLogin();
-            return true;
-        } else if (item.getItemId() == R.id.actionUserList) {
-            Intent intent = new Intent(this, UserDataActivity.class);
-            startActivity(intent);
-            return true;
-        } else if (item.getItemId() == R.id.actionProdukList) {
-            Intent intent = new Intent(this, ProdukDataActivity.class);
-            startActivity(intent);
-            return true;
-        } else if (item.getItemId() == R.id.actionPesananList) {
-            Intent intent = new Intent(this, PesananDataActivity.class);
-            startActivity(intent);
-            return true;
-        } else {
-            return super.onOptionsItemSelected(item);
-        }
-    }
 }

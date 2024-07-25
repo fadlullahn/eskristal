@@ -20,7 +20,6 @@ import com.example.eskristal.Api.ApiClient;
 import com.example.eskristal.Adapter.AdapterDataPesanan;
 import com.example.eskristal.Model.Pesanan.DataModelPesanan;
 import com.example.eskristal.Model.Pesanan.ResponseModelPesanan;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,56 +94,5 @@ public class PesananDataActivity extends AppCompatActivity {
                 pbData.setVisibility(View.INVISIBLE);
             }
         });
-    }
-
-    private void moveToLogin() {
-        Intent intent = new Intent(PesananDataActivity.this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
-        startActivity(intent);
-        finish();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        String level = sessionManager.getUserDetail().get(SessionManager.LEVEL);
-        if ("admin".equals(level)) {
-            getMenuInflater().inflate(R.menu.menu_admin, menu);
-        } else if ("user".equals(level)) {
-            getMenuInflater().inflate(R.menu.menu_user, menu);
-        }else if ("karyawan".equals(level)) {
-            getMenuInflater().inflate(R.menu.menu_karyawan, menu);
-        }
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.actionLogout) {
-            sessionManager.logoutSession();
-            moveToLogin();
-            return true;
-        } else if (item.getItemId() == R.id.actionUserList) {
-            Intent intent = new Intent(this, UserDataActivity.class);
-            startActivity(intent);
-            return true;
-        } else if (item.getItemId() == R.id.actionProdukList) {
-            Intent intent = new Intent(this, ProdukDataActivity.class);
-            startActivity(intent);
-            return true;
-        } else if (item.getItemId() == R.id.actionPesananList) {
-            Intent intent = new Intent(this, PesananDataActivity.class);
-            startActivity(intent);
-            return true;
-        } else if (item.getItemId() == R.id.actionRiwayatPesanan) {
-            Intent intent = new Intent(this, PesananDataActivity.class);
-            startActivity(intent);
-            return true;
-//        } else if (item.getItemId() == R.id.actionRiwayatAntar) {
-//            Intent intent = new Intent(this, PesananDataActivity.class);
-//            startActivity(intent);
-//            return true;
-        } else {
-            return super.onOptionsItemSelected(item);
-        }
     }
 }

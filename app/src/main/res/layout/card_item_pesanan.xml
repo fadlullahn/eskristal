@@ -74,6 +74,14 @@
             android:textStyle="bold"
             android:textColor="@color/colorPrimary"
             android:textSize="18sp" />
+        <Button
+            android:id="@+id/btn_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/buttonColor"
+            android:textColor="@color/putih"
+            android:text="Aksi"
+            android:visibility="gone" /> <!-- Awalnya disembunyikan -->
 
     </LinearLayout>
 

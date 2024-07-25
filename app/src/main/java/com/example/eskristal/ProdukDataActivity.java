@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,6 +36,7 @@ public class ProdukDataActivity extends AppCompatActivity {
     public static ProdukDataActivity ma;
     private FloatingActionButton fabAdd;
     SessionManager sessionManager;
+    Button btnRight,btnLeft;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,8 @@ public class ProdukDataActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mApiInterface = ApiClient.getClient().create(ApiInterface.class);
+        btnLeft = findViewById(R.id.btnLeft);
+        btnRight = findViewById(R.id.btnRight);
         ma = this;
         refresh();
 
@@ -54,8 +58,12 @@ public class ProdukDataActivity extends AppCompatActivity {
 
         if (level.equals("admin")) {
             fabAdd.setVisibility(View.VISIBLE);
+            btnLeft.setVisibility(View.GONE);
+            btnRight.setVisibility(View.GONE);
         } else {
             fabAdd.setVisibility(View.GONE);
+            btnLeft.setVisibility(View.VISIBLE);
+            btnRight.setVisibility(View.VISIBLE);
         }
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +71,23 @@ public class ProdukDataActivity extends AppCompatActivity {
                 startActivity(new Intent(ProdukDataActivity.this, ProdukTambahActivity.class));
             }
         });
+        btnLeft.setOnClickListener(v -> {
+            sessionManager.logoutSession();
+            moveToLogin();
+        });
+        btnRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ProdukDataActivity.this, PesananDataActivity.class));
+            }
+        });
+    }
+
+    private void moveToLogin() {
+        Intent intent = new Intent(ProdukDataActivity.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
+        startActivity(intent);
+        finish();
     }
 
     public void refresh() {
@@ -83,51 +108,5 @@ public class ProdukDataActivity extends AppCompatActivity {
                 Log.e("Retrofit Get", t.toString());
             }
         });
-    }
-
-    private void moveToLogin() {
-        Intent intent = new Intent(ProdukDataActivity.this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
-        startActivity(intent);
-        finish();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        String level = sessionManager.getUserDetail().get(SessionManager.LEVEL);
-        if ("admin".equals(level)) {
-            getMenuInflater().inflate(R.menu.menu_admin, menu);
-        } else if ("user".equals(level)) {
-            getMenuInflater().inflate(R.menu.menu_user, menu);
-        }
-        return super.onCreateOptionsMenu(menu);
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.actionLogout) {
-            sessionManager.logoutSession();
-            moveToLogin();
-            return true;
-        } else if (item.getItemId() == R.id.actionUserList) {
-            Intent intent = new Intent(this, UserDataActivity.class);
-            startActivity(intent);
-            return true;
-        } else if (item.getItemId() == R.id.actionProdukList) {
-            Intent intent = new Intent(this, ProdukDataActivity.class);
-            startActivity(intent);
-            return true;
-        } else if (item.getItemId() == R.id.actionPesananList) {
-            Intent intent = new Intent(this, PesananDataActivity.class);
-            startActivity(intent);
-            return true;
-        } else if (item.getItemId() == R.id.actionRiwayatPesanan) {
-            Intent intent = new Intent(this, PesananDataActivity.class);
-            startActivity(intent);
-            return true;
-        } else {
-            return super.onOptionsItemSelected(item);
-        }
     }
 }

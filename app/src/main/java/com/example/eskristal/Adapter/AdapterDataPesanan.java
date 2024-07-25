@@ -8,6 +8,7 @@ import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -98,6 +99,8 @@ public class AdapterDataPesanan extends RecyclerView.Adapter<AdapterDataPesanan.
     public class HolderData extends RecyclerView.ViewHolder {
         TextView tvId, tvAlamat, tvIdProduk, tvIdUser, tvNohp, tvLevel, tvPassword, tvProses;
 
+        Button btnAction;
+
         public HolderData(@NonNull View itemView) {
             super(itemView);
 
@@ -109,61 +112,69 @@ public class AdapterDataPesanan extends RecyclerView.Adapter<AdapterDataPesanan.
             tvLevel = itemView.findViewById(R.id.tv_level);
             tvPassword = itemView.findViewById(R.id.tv_password);
             tvProses = itemView.findViewById(R.id.tv_proses);
+            btnAction = itemView.findViewById(R.id.btn_action); // Inisialisasi tombol
 
             String level = sessionManager.getUserDetail().get(SessionManager.LEVEL);
 
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    String proses = tvProses.getText().toString();
-                    AlertDialog.Builder dialogPesan = new AlertDialog.Builder(ctx);
-                    dialogPesan.setMessage("Pilih Operasi yang Akan Dilakukan");
-                    dialogPesan.setTitle("Perhatian");
-                    dialogPesan.setIcon(R.mipmap.ic_launcher_round);
-                    dialogPesan.setCancelable(true);
+            if (level.equals("karyawan")) {
+                btnAction.setVisibility(View.VISIBLE); // Tampilkan tombol untuk karyawan
+                btnAction.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String proses = tvProses.getText().toString();
+                        idPesanan = Integer.parseInt(tvId.getText().toString());
 
-                    idPesanan = Integer.parseInt(tvId.getText().toString());
-
-                    if (level.equals("admin") || level.equals("user")) {
-                        dialogPesan.setPositiveButton("Hapus", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                deleteDataPesanan();
-                                dialogInterface.dismiss();
-                                Handler hand = new Handler();
-                                hand.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        ((PesananDataActivity) ctx).retrieveDataPesanan();
-                                    }
-                                }, 1000);
-                            }
-                        });
-                    } else if (level.equals("karyawan")) {
                         if ("diproses".equals(proses)) {
-                            dialogPesan.setNegativeButton("Antar Pesanan", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    getDataPesanan();
-                                    dialogInterface.dismiss();
-                                }
-                            });
+                            antarPesanan();
                         } else if ("diantar".equals(proses)) {
-                            dialogPesan.setPositiveButton("Selesai", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    getDataPesanan();
-                                    dialogInterface.dismiss();
-                                }
-                            });
-                        } else if ("selesai".equals(proses)) {
-                            return true;
+                            selesaiPesanan();
                         }
                     }
-                    dialogPesan.show();
-                    return false;
-                }
-            });
+                });
+            } else {
+                itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        String proses = tvProses.getText().toString();
+                        AlertDialog.Builder dialogPesan = new AlertDialog.Builder(ctx);
+                        dialogPesan.setMessage("Pilih Operasi yang Akan Dilakukan");
+                        dialogPesan.setTitle("Perhatian");
+                        dialogPesan.setIcon(R.mipmap.ic_launcher_round);
+                        dialogPesan.setCancelable(true);
+
+                        idPesanan = Integer.parseInt(tvId.getText().toString());
+
+                        if (level.equals("admin") || level.equals("user")) {
+                            dialogPesan.setPositiveButton("Hapus", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    deleteDataPesanan();
+                                    dialogInterface.dismiss();
+                                    Handler hand = new Handler();
+                                    hand.postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            ((PesananDataActivity) ctx).retrieveDataPesanan();
+                                        }
+                                    }, 1000);
+                                }
+                            });
+                        }
+                        dialogPesan.show();
+                        return false;
+                    }
+                });
+            }
+        }
+
+        private void antarPesanan() {
+            // Logika untuk mengantar pesanan
+            getDataPesanan();
+        }
+
+        private void selesaiPesanan() {
+            // Logika untuk menyelesaikan pesanan
+            getDataPesanan();
         }
 
         private void getDataPesanan() {

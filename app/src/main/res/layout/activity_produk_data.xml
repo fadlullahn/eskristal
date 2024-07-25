@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@color/colorPrimary"
     tools:context=".ProdukDataActivity">
 
     <ProgressBar
@@ -32,4 +33,39 @@
         app:layout_anchor="@id/rv_heros"
         app:layout_anchorGravity="bottom|end"
         app:srcCompat="@drawable/ic_add" />
+
+    <!-- Menambahkan ConstraintLayout untuk dua tombol -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:padding="16dp"
+        android:background="@android:color/transparent">
+
+        <Button
+            android:id="@+id/btnLeft"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnRight"
+            android:background="@color/buttonColor"
+            android:textColor="@color/putih"/>
+
+        <Button
+            android:id="@+id/btnRight"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Riwayat Pemesanan"
+            app:layout_constraintStart_toEndOf="@id/btnLeft"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/buttonColor"
+            android:textColor="@color/putih"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

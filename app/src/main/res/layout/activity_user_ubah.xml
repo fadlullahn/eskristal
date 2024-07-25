@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
+    android:background="@color/colorPrimary"
     tools:context=".UserUbahActivity">
 
     <TextView
@@ -89,6 +90,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Ubah"
+        android:textColor="@android:color/white"
+        android:background="@color/buttonColor"
         android:layout_marginTop="30dp"
         />
 
