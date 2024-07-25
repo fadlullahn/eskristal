@@ -75,7 +75,7 @@
                 android:id="@+id/btnRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/buttonColor"
+                android:background="@color/colorPrimary"
                 android:textColor="@android:color/white"
                 android:text="REGISTER"/>
 

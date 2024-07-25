@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.example.eskristal.Adapter.SessionManager;
 
 public class MainActivity extends AppCompatActivity {
-    Button btnDataUser, btnDataProduk, btnDataPesanan;
+    Button btnDataUser, btnDataProduk, btnDataPesanan, btnDataKaryawan;
     TextView etUsername, etName, etLevel, etId, etPassword;
     SessionManager sessionManager;
     String username, name, level, id, password;
@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         btnDataPesanan = findViewById(R.id.btnDataPesanan);
         btnDataProduk = findViewById(R.id.btnDataProduk);
         btnDataUser = findViewById(R.id.btnDataUser);
+        btnDataKaryawan = findViewById(R.id.btnDataKaryawan);
 
         etUsername = findViewById(R.id.etMainUsername);
         etName = findViewById(R.id.etMainName);
@@ -81,6 +82,11 @@ public class MainActivity extends AppCompatActivity {
 
         btnDataPesanan.setOnClickListener(v -> {
             Intent intent = new Intent(this, PesananDataActivity.class);
+            startActivity(intent);
+        });
+
+        btnDataKaryawan.setOnClickListener(v -> {
+            Intent intent = new Intent(this, UserDataActivity.class);
             startActivity(intent);
         });
     }
