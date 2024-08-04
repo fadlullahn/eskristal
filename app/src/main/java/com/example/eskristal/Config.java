@@ -1,7 +1,7 @@
 package com.example.eskristal;
 public class Config {
-    public static final String BASE_URL = "http://192.168.43.183/eskristal/";
-    public static final String IMAGES_URL = "http://192.168.43.183/eskristal/assets/files/heros/";
+    public static final String BASE_URL = "https://eskristal.fadlullahnft.com/";
+    public static final String IMAGES_URL = "https://eskristal.fadlullahnft.com/assets/files/heros/";
     public static final int REQUEST_PICK_PHOTO = 2;
     public static final int REQUEST_WRITE_PERMISSION = 786;
     public static final int ALERT_DIALOG_CLOSE = 10;
