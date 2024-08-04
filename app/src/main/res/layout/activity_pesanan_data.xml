@@ -1,43 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PesananDataActivity"
-    android:background="@color/colorPrimary">
-
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/srl_data"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_data"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/card_item_pesanan"
-            />
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    android:fitsSystemWindows="true"
+    android:background="@color/colorPrimary"
+    tools:context=".PesananDataActivity">
 
     <ProgressBar
-        android:id="@+id/pb_data"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:id="@+id/progressbar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:visibility="invisible"
-        />
+        app:layout_anchor="@id/rv_heros"
+        app:layout_anchorGravity="center" />
 
-    <Button
-        android:id="@+id/btnRight"
-        android:layout_width="150dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_heros"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:listitem="@layout/card_item_pesanan" />
+
+    <!-- Menambahkan ConstraintLayout untuk dua tombol -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Logout"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="250dp"
-        android:background="@color/buttonColor"
-        android:textColor="@color/putih"/>
+        android:layout_gravity="bottom"
+        android:padding="16dp"
+        android:background="@android:color/transparent">
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/btnLeft"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnRight"
+            android:background="@color/buttonColor"
+            android:textColor="@color/putih"/>
+
+        <Button
+            android:id="@+id/btnRight"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Riwayat Pemesanan"
+            app:layout_constraintStart_toEndOf="@id/btnLeft"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/buttonColor"
+            android:textColor="@color/putih"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,7 +1,8 @@
 package com.example.eskristal.Api;
 
 import com.example.eskristal.Model.Login.Login;
-import com.example.eskristal.Model.Pesanan.ResponseModelPesanan;
+import com.example.eskristal.Model.Pesanan.GetPesanan;
+import com.example.eskristal.Model.Pesanan.PostPutDelPesanan;
 import com.example.eskristal.Model.Produk.GetProduk;
 import com.example.eskristal.Model.Produk.PostPutDelProduk;
 import com.example.eskristal.Model.Register.Register;
@@ -69,6 +70,36 @@ public interface ApiInterface {
             @Field("password") String password
     );
 
+    @GET("pesanan.php")
+    Call<GetPesanan> getPesanan();
+
+    @Multipart
+    @POST("pesanan.php")
+    Call<PostPutDelPesanan> postPesanan(@Part MultipartBody.Part image,
+                                      @Part("produk") RequestBody produk,
+                                        @Part("user") RequestBody user,
+                                      @Part("price") RequestBody price,
+                                      @Part("date") RequestBody date,
+                                        @Part("alamat") RequestBody alamat,
+                                        @Part("nohp") RequestBody nohp,
+                                        @Part("jumlah") RequestBody jumlah,
+                                        @Part("proses") RequestBody proses,
+                                      @Part("flag") RequestBody flag);
+
+    @FormUrlEncoded
+    @POST("update_proses.php")
+    Call<PostPutDelPesanan> updateStatusPesanan(
+            @Field("id") String id,
+            @Field("proses") String status
+    );
+
+
+    @FormUrlEncoded
+    @HTTP(method = "DELETE", path = "pesanan.php", hasBody = true)
+    Call<PostPutDelPesanan> deletePesanan(@Field("id") String id);
+
+
+
     @GET("produk.php")
     Call<GetProduk> getHeros();
 
@@ -94,44 +125,5 @@ public interface ApiInterface {
     Call<PostPutDelProduk> deleteHeros(@Field("id") String id);
 
 
-    @GET("pesanan/retrieve.php")
-    Call<ResponseModelPesanan> ardRetrieveDataPesanan();
-
-    @FormUrlEncoded
-    @POST("pesanan/create.php")
-    Call<ResponseModelPesanan> ardCreateDataPesanan(
-            @Field("id_produk") String id_produk,
-            @Field("id_user") String id_user,
-            @Field("alamat") String alamat,
-            @Field("nohp") String nohp,
-            @Field("level") String level,
-            @Field("password") String password,
-            @Field("proses") String proses
-    );
-
-    @FormUrlEncoded
-    @POST("pesanan/delete.php")
-    Call<ResponseModelPesanan> ardDeleteDataPesanan(
-            @Field("id") int id
-    );
-
-    @FormUrlEncoded
-    @POST("pesanan/get.php")
-    Call<ResponseModelPesanan> ardGetDataPesanan(
-            @Field("id") int id
-    );
-
-    @FormUrlEncoded
-    @POST("pesanan/update.php")
-    Call<ResponseModelPesanan> ardUpdateDataPesanan(
-            @Field("id") int id,
-            @Field("id_produk") String id_produk,
-            @Field("id_user") String id_user,
-            @Field("alamat") String alamat,
-            @Field("nohp") String nohp,
-            @Field("level") String level,
-            @Field("password") String password,
-            @Field("proses") String proses
-    );
 }
 

@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.eskristal.Config;
 import com.example.eskristal.Model.Produk.Produk;
-import com.example.eskristal.ProdukPesanActivity;
+import com.example.eskristal.PesananTambahActivity;
 import com.example.eskristal.ProdukUbahActivity;
 import com.example.eskristal.R;
 
@@ -58,7 +58,7 @@ public class AdapterDataProduk extends RecyclerView.Adapter<AdapterDataProduk.My
                 if (level != null && level.equals("admin")) {
                     mIntent = new Intent(view.getContext(), ProdukUbahActivity.class);
                 } else {
-                    mIntent = new Intent(view.getContext(), ProdukPesanActivity.class);
+                    mIntent = new Intent(view.getContext(), PesananTambahActivity.class);
                 }
 
                 mIntent.putExtra("Id", mHerosList.get(position).getId());
