@@ -25,7 +25,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     EditText etUsername, etPassword;
     Button btnLogin;
     String Username, Password;
-    TextView tvRegister;
+    TextView tvRegister, tvLupaPassword;
     ApiInterface apiInterface;
     SessionManager sessionManager;
 
@@ -43,6 +43,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         tvRegister = findViewById(R.id.tvCreateAccount);
         tvRegister.setOnClickListener(this);
+
+        tvLupaPassword = findViewById(R.id.tvLupaPassword);
+
+        tvLupaPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start a new activity
+                Intent intent = new Intent(LoginActivity.this, LupaPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

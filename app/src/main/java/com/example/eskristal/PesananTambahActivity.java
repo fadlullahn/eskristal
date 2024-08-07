@@ -291,13 +291,13 @@ public class PesananTambahActivity extends AppCompatActivity {
 
 
 
-    private void requestPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            requestPermissions(new String[]{Manifest.permission.READ_MEDIA_IMAGES, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_PERMISSION);
-        } else {
-            savePesanan();
-        }
-    }
+//    private void requestPermission() {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+//            requestPermissions(new String[]{Manifest.permission.READ_MEDIA_IMAGES, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_PERMISSION);
+//        } else {
+//            savePesanan();
+//        }
+//    }
 
 //    private void requestPermission() {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -312,11 +312,11 @@ public class PesananTambahActivity extends AppCompatActivity {
 //        }
 //    }
 
-//    private void requestPermission() {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-//            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_WRITE_PERMISSION);
-//        } else {
-//            saveImageUpload();
-//        }
-//    }
+    private void requestPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_WRITE_PERMISSION);
+        } else {
+            savePesanan();
+        }
+    }
 }
